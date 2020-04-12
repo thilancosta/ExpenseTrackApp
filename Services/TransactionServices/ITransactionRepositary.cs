@@ -12,11 +12,12 @@ namespace ExpenseTrackApp.Services.TransactionServices
     {
         int Add(ITransaction transaction);
         int Update(ITransaction transaction);
-        int Delete(int id);
+        int Delete(string id);
 
-        IEnumerable<Object> GetAllById(int user_id);
+        IEnumerable<Object> GetAllById(string user_id);
+        IEnumerable<Object> GetAllByMonth(string user_id, string month);
 
-        ITransaction GetById(int id);
+        Transaction GetById(string id);
 
     }
 }

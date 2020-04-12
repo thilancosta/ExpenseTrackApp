@@ -24,17 +24,22 @@ namespace ExpenseTrackApp.Services.TransactionServices
             throw new NotImplementedException();
         }
 
-        public int Delete(int id)
+        public int Delete(string id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Object> GetAllById(int user_id)
+        public IEnumerable<Object> GetAllById(string user_id)
         {
             throw new NotImplementedException();
         }
 
-        public ITransaction GetById(int id)
+        public IEnumerable<object> GetAllByMonth(string user_id, string month)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transaction GetById(string id)
         {
             throw new NotImplementedException();
         }

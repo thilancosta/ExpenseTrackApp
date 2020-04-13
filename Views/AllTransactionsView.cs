@@ -1,4 +1,6 @@
-﻿using ExpenseTrackApp.Models;
+﻿using ExpenseTrackApp.Controllers;
+using ExpenseTrackApp.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,6 +52,25 @@ namespace ExpenseTrackApp.Views
             comboBox2.ValueMember = "id";
             comboBox2.DisplayMember = "name";
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string var = comboBox2.SelectedValue.ToString();
+            Console.WriteLine(var);
+
+            TransactionController trcon = new TransactionController();
+            string user_id = "7fa65ff0-4a3e-4cc5-b975-fae5c16b385e";
+            string date = DateTime.Now.Year.ToString() + '-' + var;
+
+
+
+            DataTable dt = new DataTable();
+            MySqlDataAdapter adapt = trcon.get_transactions_by_month_userid(user_id, date); 
+            adapt.Fill(dt);
+            dataGridView1.DataSource = null;
+            dataGridView1.Refresh();
+            dataGridView1.DataSource = dt;
         }
     }
 }

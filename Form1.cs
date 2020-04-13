@@ -49,7 +49,8 @@ namespace ExpenseTrackApp
             allTransactionsView.dataGridView1.DataSource = dt;
 
             allTransactionsView.Show();
-            
+            allTransactionsView.comboBox2.SelectedValue = DateTime.Now.Month.ToString();
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackApp.CommonServices;
 using ExpenseTrackApp.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ExpenseTrackApp.Services.TransactionServices
 {
-    public class TransactionServices : ITransactionRepositary, ITransactionService
+    public class TransactionServices : ITransactionService
     {
         private ITransactionRepositary _transactionRepositary;
         private IModelDataAnnotationCheck _modelDataAnnotationCheck;
 
-        public TransactionServices (ITransactionRepositary transactionRepositary, IModelDataAnnotationCheck modelDataAnnotationCheck)
+        public TransactionServices(ITransactionRepositary transactionRepositary, IModelDataAnnotationCheck modelDataAnnotationCheck)
         {
             _transactionRepositary = transactionRepositary;
             _modelDataAnnotationCheck = modelDataAnnotationCheck;
@@ -21,32 +22,32 @@ namespace ExpenseTrackApp.Services.TransactionServices
 
         public int Add(ITransaction transaction)
         {
-            throw new NotImplementedException();
+            return _transactionRepositary.Add(transaction);
         }
 
         public int Delete(string id)
         {
-            throw new NotImplementedException();
+            return _transactionRepositary.Delete(id);
         }
 
         public IEnumerable<Object> GetAllById(string user_id)
         {
-            throw new NotImplementedException();
+            return _transactionRepositary.GetAllById(user_id);
         }
 
-        public IEnumerable<object> GetAllByMonth(string user_id, string month)
+        public MySqlDataAdapter GetAllByMonth(string user_id, string month)
         {
-            throw new NotImplementedException();
+            return _transactionRepositary.GetAllByMonth(user_id, month);
         }
 
         public Transaction GetById(string id)
         {
-            throw new NotImplementedException();
+            return _transactionRepositary.GetById(id);
         }
 
         public int Update(ITransaction transaction)
         {
-            throw new NotImplementedException();
+            return _transactionRepositary.Update(transaction);
         }
 
         public void ValidateModel(ITransaction transaction)

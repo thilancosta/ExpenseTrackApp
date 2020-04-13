@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Data.SqlClient;
 using ExpenseTrackApp.Models;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace ExpenseTrackApp.Repos.TransactionRepo
 {
@@ -86,7 +88,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
             {
                 try
                 {
-                    String sql = "SELECT * FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=?";
+                    string sql = "SELECT * FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=?";
                     list = connection.Query(sql, new Object[] { user_id }).ToList();
                     // var output = connection.Query<Person>("dbo.People_GetByLastName @LastName", new { LastName = lastName }).ToList();
                     
@@ -99,23 +101,56 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
             }
         }
 
-        public IEnumerable<object> GetAllByMonth(string user_id, string month)
+        public MySqlDataAdapter GetAllByMonth(string user_id, string month)
         {
             List<Object> list = new List<Object>();
-            using (SqlConnection connection = new SqlConnection(Helper.CnnVal("SampleDB")))
+            MySqlDataAdapter adapt = new MySqlDataAdapter();
+            using (MySqlConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
                 try
                 {
-                    String sql = "SELECT * FROM transaction  LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=?  &&  CONCAT(YEAR(timestamp),'-',MONTH(timestamp)) =?";
-                    list = connection.Query(sql, new Object[] { user_id,month }).ToList();
-                    // var output = connection.Query<Person>("dbo.People_GetByLastName @LastName", new { LastName = lastName }).ToList();
+                    connection.Open();
+                    var parameters = new { userId = user_id, date = month };
+                    string sql = "SELECT transaction.remarks as remarks,transaction.amount as amount,category.category as category,transaction.timestamp as date FROM transaction  LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId= @userId AND CONCAT(YEAR(transaction.timestamp),'-',MONTH(transaction.timestamp)) = @date";
 
+                    // list = connection.Query(sql, parameters).ToList();
+
+                    adapt = new MySqlDataAdapter(sql, connection);
+
+                    //MySqlCommand mySqlCommand = new MySqlCommand(sql, connection);
+                                       
+                    adapt.SelectCommand.Parameters.Add(new MySqlParameter("@userId", user_id));
+                    adapt.SelectCommand.Parameters.Add(new MySqlParameter("@date", month));
+
+                    
+
+                    //MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                    //string output = "";
+                    //foreach (var s in list)
+                    //{
+                    //    Console.WriteLine("he");
+                    //    output = output + s + "\n";
+                    //}
+                    //while (reader.Read())
+                    //{
+                    //    output = output + reader.GetValue(0) +  "\n";
+                    //}
+                    //MessageBox.Show(output);
+                    //connection.Close();
+
+                    //string output = "";
+                    //foreach (var s in list)
+                    //{
+                    //    Console.WriteLine("he");
+                    //    output = output + s + "\n";
+                    //}
+                    //MessageBox.Show(output);
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    MessageBox.Show(e.Message);
                 }
-                return list;
+                return adapt;
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using ExpenseTrackApp.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace ExpenseTrackApp.Services.TransactionServices
         int Delete(string id);
 
         IEnumerable<Object> GetAllById(string user_id);
-        IEnumerable<Object> GetAllByMonth(string user_id, string month);
+        MySqlDataAdapter GetAllByMonth(string user_id, string month);
 
         Transaction GetById(string id);
 

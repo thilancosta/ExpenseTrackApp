@@ -8,10 +8,10 @@ namespace ExpenseTrackApp.Models
 {
     class Category : ICategory
     {
-        private string categoryId { get; set; }
-        private string userId { get; set; }
-        private string category { get; set; }
-        private double exp_limit { get; set; }
-        private string type { get; set; }
+        public string categoryId { get; set; }
+        public string userId { get; set; }
+        public string category { get; set; }
+        public double exp_limit { get; set; }
+        public string type { get; set; }
     }
 }

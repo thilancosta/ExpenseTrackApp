@@ -50,6 +50,7 @@
             this.category_button.TabIndex = 1;
             this.category_button.Text = "Categories";
             this.category_button.UseVisualStyleBackColor = true;
+            this.category_button.Click += new System.EventHandler(this.category_button_Click);
             // 
             // Form1
             // 

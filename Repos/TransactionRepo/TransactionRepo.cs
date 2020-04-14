@@ -17,15 +17,15 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
     {
         public int Add(ITransaction transaction)
         {
-            using (SqlConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SampleDB")))
+            using (MySqlConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
                 int result = 0;
                 try
                 {
-                    String sql = "INSERT INTO transaction(transactionId, userId ,categoryId, amount, remarks, timestamp) VALUES(@transactionId, @userId ,@categoryId, @amount, @remarks, @timestamp)";
+                    string sql = "INSERT INTO transaction(transactionId, userId ,categoryId, amount, remarks, timestamp) VALUES(@transactionId, @userId ,@categoryId, @amount, @remarks, @timestamp)";
                     //String query = "INSERT INTO dbo.SMS_PW (id,username,password,email) VALUES (@id,@username,@password, @email)";
 
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@transactionId", transaction.transactionId);
                         command.Parameters.AddWithValue("@userId", transaction.user_id);
@@ -42,7 +42,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    MessageBox.Show(e.Message);
                 }
                 finally
                 {
@@ -55,7 +55,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
 
         public int Delete(string transactionId)
         {
-            using (SqlConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SampleDB")))
+            using (MySqlConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
                 int result = 0;
 
@@ -63,7 +63,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 {
                     string sqlStatement = "DELETE FROM transaction WHERE transactionId = @transactionId";
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand(sqlStatement, connection);
+                    MySqlCommand cmd = new MySqlCommand(sqlStatement, connection);
                     cmd.Parameters.AddWithValue("@transactionId", transactionId);
                     cmd.CommandType = CommandType.Text;
                     result = cmd.ExecuteNonQuery();
@@ -71,7 +71,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    MessageBox.Show(e.Message);
                 }
                 finally
                 {
@@ -84,7 +84,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
         public IEnumerable<Object> GetAllById(string user_id)
         {
             List<Object> list = new List<Object>();
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SampleDB")))
+            using (IDbConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
                 try
                 {
@@ -95,7 +95,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    MessageBox.Show(e.Message);
                 }
                 return list;
             }
@@ -110,8 +110,8 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 try
                 {
                     connection.Open();
-                    var parameters = new { userId = user_id, date = month };
-                    string sql = "SELECT transaction.remarks as remarks,transaction.amount as amount,category.category as category,transaction.timestamp as date FROM transaction  LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId= @userId AND CONCAT(YEAR(transaction.timestamp),'-',MONTH(transaction.timestamp)) = @date";
+                    //var parameters = new { userId = user_id, date = month };
+                    string sql = "SELECT transactionId,transaction.remarks as Remarks,transaction.amount as Amount,category.category as Category,transaction.timestamp as Time,transaction.categoryId as categoryId FROM transaction  LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId= @userId AND CONCAT(YEAR(transaction.timestamp),'-',MONTH(transaction.timestamp)) = @date";
 
                     // list = connection.Query(sql, parameters).ToList();
 
@@ -157,7 +157,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
         public Transaction GetById(string id)
         {
             Transaction transaction = new Transaction();
-            using (SqlConnection connection = new SqlConnection(Helper.CnnVal("SampleDB")))
+            using (MySqlConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
                 bool MatchingRecordFound = false;
                 try
@@ -166,14 +166,14 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                    "FROM transaction WHERE transactionId = @transactionId";
                     //String query = "INSERT INTO dbo.SMS_PW (id,username,password,email) VALUES (@id,@username,@password, @email)";
 
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
                         command.CommandText = sql;
                         command.Prepare();
-                        command.Parameters.Add(new SqlParameter("@DepartmentId", id));
+                        command.Parameters.Add(new MySqlParameter("@transactionId", id));
                        
                         connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
                             MatchingRecordFound = reader.HasRows;
                             while (reader.Read())
@@ -193,7 +193,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    MessageBox.Show(e.Message);
                 }
                 finally
                 {
@@ -202,7 +202,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 // Check Error
                 if (!MatchingRecordFound)
                 {
-                    throw new Exception("Not found a transaction");
+                    MessageBox.Show("Not found a transaction");
                 }
                 return transaction;
             }
@@ -211,7 +211,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
 
         public int Update(ITransaction transaction)
         {
-            using (SqlConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SampleDB")))
+            using (MySqlConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
                 int result = 0;
                 try
@@ -225,7 +225,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
              + "remarks = @remarks, "
              + "timestamp = @timestamp ";
 
-                    using (SqlCommand command = new SqlCommand(updateSql, connection))
+                    using (MySqlCommand command = new MySqlCommand(updateSql, connection))
                     {
                         command.Parameters.AddWithValue("@transactionId", transaction.transactionId);
                         command.Parameters.AddWithValue("@userId", transaction.user_id);
@@ -242,7 +242,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message);
+                    MessageBox.Show(e.Message);
                 }
                 finally
                 {

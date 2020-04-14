@@ -41,16 +41,37 @@ namespace ExpenseTrackApp
             //trcon.get_transactions_by_month_userid(user_id, month);
 
             AllTransactionsView allTransactionsView = new AllTransactionsView();
-            Console.WriteLine(date);
+            //Console.WriteLine(date);
 
             DataTable dt = new DataTable();
             MySqlDataAdapter adapt = trcon.get_transactions_by_month_userid(user_id, date);
             adapt.Fill(dt);
             allTransactionsView.dataGridView1.DataSource = dt;
+            allTransactionsView.dataGridView1.Columns[0].Visible = false;
+            allTransactionsView.dataGridView1.Columns[5].Visible = false;
 
             allTransactionsView.Show();
             allTransactionsView.comboBox2.SelectedValue = DateTime.Now.Month.ToString();
 
+        }
+
+        private void category_button_Click(object sender, EventArgs e)
+        {
+            CategoryController catcon = new CategoryController();
+            string user_id = "7fa65ff0-4a3e-4cc5-b975-fae5c16b385e";
+            
+
+            AllCategoriesView allCategoriesView = new AllCategoriesView();
+            //Console.WriteLine(date);
+
+            DataTable dt = new DataTable();
+            MySqlDataAdapter adapt = catcon.get_categories_by_userid(user_id);
+            adapt.Fill(dt);
+            allCategoriesView.dataGridView1.DataSource = dt;
+            allCategoriesView.dataGridView1.Columns[0].Visible = false;
+
+
+            allCategoriesView.Show();
         }
     }
 }

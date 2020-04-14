@@ -15,10 +15,12 @@ namespace ExpenseTrackApp.Views
 {
     public partial class AllTransactionsView : Form
     {
+        //public event System.Windows.Forms.DataGridViewCellMouseEventHandler RowHeaderMouseClick;
         public AllTransactionsView()
         {
             InitializeComponent();
             this.dataBind();
+            dataGridView1.RowHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView1_RowHeaderMouseClick);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -71,6 +73,31 @@ namespace ExpenseTrackApp.Views
             dataGridView1.DataSource = null;
             dataGridView1.Refresh();
             dataGridView1.DataSource = dt;
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[5].Visible = false;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string transactionId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            textBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            comboBox1.SelectedValue = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

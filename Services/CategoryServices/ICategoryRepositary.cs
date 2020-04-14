@@ -15,7 +15,7 @@ namespace ExpenseTrackApp.Services.CategoryServices
         int Delete(string id);
 
         IEnumerable<Object> GetAllById(string user_id);
-        MySqlDataAdapter GetAllByMonth(string user_id, string month);
+        MySqlDataAdapter GetAllByUserId(string user_id);
 
         ICategory GetById(string id);
     }

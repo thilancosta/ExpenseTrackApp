@@ -10,13 +10,13 @@ namespace ExpenseTrackApp.Services.CategoryServices
 {
     public interface ICategoryService
     {
-        //void ValidateModel(ICategory category);
+        void ValidateModel(ICategory category);
         int Add(ICategory category);
         int Update(ICategory category);
         int Delete(string id);
 
         IEnumerable<Object> GetAllById(string user_id);
-        MySqlDataAdapter GetAllByMonth(string user_id, string month);
+        MySqlDataAdapter GetAllByUserId(string user_id);
 
         ICategory GetById(string id);
     }

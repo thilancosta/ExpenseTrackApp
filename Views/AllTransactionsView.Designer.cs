@@ -42,17 +42,19 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button4 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(120, 240);
+            this.dataGridView1.Location = new System.Drawing.Point(115, 255);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(712, 295);
+            this.dataGridView1.Size = new System.Drawing.Size(746, 295);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
@@ -77,9 +79,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(69, 86);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 17);
+            this.label2.Size = new System.Drawing.Size(78, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Amount";
+            this.label2.Text = "Amount ($)";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBox2
@@ -105,33 +107,37 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(250, 24);
             this.comboBox1.TabIndex = 6;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(381, 180);
+            this.button1.Location = new System.Drawing.Point(376, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 30);
             this.button1.TabIndex = 7;
             this.button1.Text = "Update";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(532, 180);
+            this.button2.Location = new System.Drawing.Point(526, 206);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(95, 30);
             this.button2.TabIndex = 8;
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(248, 180);
+            this.button3.Location = new System.Drawing.Point(245, 206);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(89, 30);
             this.button3.TabIndex = 9;
             this.button3.Text = "Insert";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label4
             // 
@@ -170,11 +176,29 @@
             this.label5.Text = "Add A New Transaction";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(69, 172);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 17);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Payer";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(185, 167);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(250, 22);
+            this.textBox3.TabIndex = 15;
+            // 
             // AllTransactionsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(986, 562);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.comboBox2);
@@ -213,5 +237,7 @@
         public System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

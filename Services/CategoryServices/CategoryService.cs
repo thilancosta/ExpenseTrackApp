@@ -1,4 +1,5 @@
 ﻿using ExpenseTrackApp.CommonServices;
+using ExpenseTrackApp.Dto;
 using ExpenseTrackApp.Models;
 using MySql.Data.MySqlClient;
 using System;
@@ -29,7 +30,7 @@ namespace ExpenseTrackApp.Services.CategoryServices
             return _categoryRepositary.Delete(id);
         }
 
-        public IEnumerable<object> GetAllById(string user_id)
+        public List<CategoryDto> GetAllById(string user_id)
         {
             return _categoryRepositary.GetAllById(user_id);
         }
@@ -39,9 +40,24 @@ namespace ExpenseTrackApp.Services.CategoryServices
             return _categoryRepositary.GetAllByUserId(user_id);
         }
 
-        public ICategory GetById(string id)
+        public Category GetById(string id)
         {
             return _categoryRepositary.GetById(id);
+        }
+
+        public CategorySummaryDto getExpensesSummary(string user_id, string date)
+        {
+            return _categoryRepositary.getExpensesSummary(user_id,date);
+        }
+
+        public CategorySummaryDto getExpensesSummaryForYear(string user_id, int date)
+        {
+            return _categoryRepositary.getExpensesSummaryForYear(user_id, date);
+        }
+
+        public CategorySummaryDto getIncomeSummary(string user_id, string date)
+        {
+            return _categoryRepositary.getIncomeSummary(user_id, date);
         }
 
         public int Update(ICategory category)

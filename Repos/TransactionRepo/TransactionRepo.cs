@@ -22,7 +22,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 int result = 0;
                 try
                 {
-                    string sql = "INSERT INTO transaction(transactionId, userId ,categoryId, amount, remarks, timestamp) VALUES(@transactionId, @userId ,@categoryId, @amount, @remarks, @timestamp)";
+                    string sql = "INSERT INTO transaction(transactionId, userId ,categoryId, amount, remarks, timestamp,payer_payee) VALUES(@transactionId, @userId ,@categoryId, @amount, @remarks, @timestamp,@payer_payee)";
                     //String query = "INSERT INTO dbo.SMS_PW (id,username,password,email) VALUES (@id,@username,@password, @email)";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -33,6 +33,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                         command.Parameters.AddWithValue("@amount", transaction.amount);
                         command.Parameters.AddWithValue("@remarks", transaction.remarks);
                         command.Parameters.AddWithValue("@timestamp", transaction.timestamp);
+                        command.Parameters.AddWithValue("@payer_payee", transaction.payer_payee);
 
                         connection.Open();
                         result = command.ExecuteNonQuery();
@@ -103,7 +104,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
 
         public MySqlDataAdapter GetAllByMonth(string user_id, string month)
         {
-            List<Object> list = new List<Object>();
+            //List<Object> list = new List<Object>();
             MySqlDataAdapter adapt = new MySqlDataAdapter();
             using (MySqlConnection connection = new MySqlConnection(Helper.CnnVal("SampleDB")))
             {
@@ -111,7 +112,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 {
                     connection.Open();
                     //var parameters = new { userId = user_id, date = month };
-                    string sql = "SELECT transactionId,transaction.remarks as Remarks,transaction.amount as Amount,category.category as Category,transaction.timestamp as Time,transaction.categoryId as categoryId FROM transaction  LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId= @userId AND CONCAT(YEAR(transaction.timestamp),'-',MONTH(transaction.timestamp)) = @date";
+                    string sql = "SELECT transactionId,transaction.remarks as Remarks,transaction.amount as Amount,category.category as Category,transaction.timestamp as Time,transaction.categoryId as categoryId,category.type as type,transaction.payer_payee as Payer_or_Payee FROM transaction  LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId= @userId AND CONCAT(YEAR(transaction.timestamp),'-',MONTH(transaction.timestamp)) = @date";
 
                     // list = connection.Query(sql, parameters).ToList();
 
@@ -162,7 +163,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 bool MatchingRecordFound = false;
                 try
                 {
-                    string sql = "SELECT transactionId, userId, categoryId, amount, remarks, timestamp " +
+                    string sql = "SELECT transactionId, userId, categoryId, amount, remarks, timestamp,payer_payee " +
                    "FROM transaction WHERE transactionId = @transactionId";
                     //String query = "INSERT INTO dbo.SMS_PW (id,username,password,email) VALUES (@id,@username,@password, @email)";
 
@@ -185,6 +186,7 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                                 transaction.amount = Convert.ToDouble(reader["amount"]);
                                 transaction.timestamp = Convert.ToDateTime(reader["timestamp"]);
                                 transaction.user_id = reader["userId"].ToString();
+                                transaction.payer_payee = reader["payer_payee"].ToString();
                             }
                         }
 
@@ -216,25 +218,22 @@ namespace ExpenseTrackApp.Repos.TransactionRepo
                 int result = 0;
                 try
                 {
-                    string updateSql =
-               "UPDATE transaction "
-             + "SET transactionId = @transactionId, "
-             + "userId = @userId, "
-             + "categoryId = @categoryId, "
-             + "amount = @amount, "
-             + "remarks = @remarks, "
-             + "timestamp = @timestamp ";
+                    connection.Open();
+                    string updateSql = "UPDATE transaction SET payer_payee = @payer_payee, userId = @userId, categoryId = @categoryId, amount = @amount, remarks = @remarks WHERE transactionId = @transactionId  ";
 
                     using (MySqlCommand command = new MySqlCommand(updateSql, connection))
                     {
+                        command.CommandText = updateSql;
+                        command.Prepare();
                         command.Parameters.AddWithValue("@transactionId", transaction.transactionId);
                         command.Parameters.AddWithValue("@userId", transaction.user_id);
                         command.Parameters.AddWithValue("@categoryId", transaction.category_id);
                         command.Parameters.AddWithValue("@amount", transaction.amount);
                         command.Parameters.AddWithValue("@remarks", transaction.remarks);
-                        command.Parameters.AddWithValue("@timestamp", transaction.timestamp);
+                        //command.Parameters.AddWithValue("@timestamp", transaction.timestamp);
+                        command.Parameters.AddWithValue("@payer_payee", transaction.payer_payee);
 
-                        connection.Open();
+                        
                         result = command.ExecuteNonQuery();
 
 

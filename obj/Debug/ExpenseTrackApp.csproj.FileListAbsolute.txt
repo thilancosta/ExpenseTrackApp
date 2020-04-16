@@ -28,3 +28,5 @@ C:\Users\THILAN COSTA\source\repos\ExpenseTrackApp\bin\Debug\System.Memory.xml
 C:\Users\THILAN COSTA\source\repos\ExpenseTrackApp\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\THILAN COSTA\source\repos\ExpenseTrackApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\THILAN COSTA\source\repos\ExpenseTrackApp\obj\Debug\ExpenseTrackApp.Views.AllCategoriesView.resources
+C:\Users\THILAN COSTA\source\repos\ExpenseTrackApp\obj\Debug\ExpenseTrackApp.Views.SummaryView.resources
+C:\Users\THILAN COSTA\source\repos\ExpenseTrackApp\obj\Debug\ExpenseTrackApp.Views.PredictionView.resources

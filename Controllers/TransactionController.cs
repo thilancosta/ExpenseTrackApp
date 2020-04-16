@@ -23,13 +23,13 @@ namespace ExpenseTrackApp.Controllers
             return _transactionServices.GetAllByMonth(user_id, month);
         }
 
-        public Object save_transaction(Transaction transaction)
+        public int save_transaction(ITransaction transaction)
         {
             ITransactionService _transactionServices = new TransactionServices(_transactionRepositary, _modelDataAnnotationCheck);
             return _transactionServices.Add(transaction);
         }
 
-        public Object delete_transaction(string id)
+        public int delete_transaction(string id)
         {
             ITransactionService _transactionServices = new TransactionServices(_transactionRepositary, _modelDataAnnotationCheck);
             return _transactionServices.Delete(id);
@@ -41,13 +41,13 @@ namespace ExpenseTrackApp.Controllers
             return _transactionServices.GetAllById(id);
         }
 
-        public Object get_transactions_by_id(string id)
+        public Transaction get_transactions_by_id(string id)
         {
             ITransactionService _transactionServices = new TransactionServices(_transactionRepositary, _modelDataAnnotationCheck);
             return _transactionServices.GetById(id);
         }
 
-        public Object update_transaction(Transaction transaction)
+        public int update_transaction(ITransaction transaction)
         {
             ITransactionService _transactionServices = new TransactionServices(_transactionRepositary, _modelDataAnnotationCheck);
             return _transactionServices.Update(transaction);

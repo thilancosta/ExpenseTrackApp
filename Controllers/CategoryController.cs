@@ -1,4 +1,5 @@
 ﻿using ExpenseTrackApp.CommonServices;
+using ExpenseTrackApp.Dto;
 using ExpenseTrackApp.Models;
 using ExpenseTrackApp.Repos.CategoryRepo;
 using ExpenseTrackApp.Services.CategoryServices;
@@ -23,34 +24,52 @@ namespace ExpenseTrackApp.Controllers
             return _categoryService.GetAllByUserId(user_id);
         }
 
-        public Object save_category(Category category)
+        public int save_category(ICategory category)
         {
             ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
             return _categoryService.Add(category);
         }
 
-        public Object delete_cat(string id)
+        public int delete_cat(string id)
         {
             ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
             return _categoryService.Delete(id);
         }
 
-        public Object get_cats_by_userid(string id)
+        public List<CategoryDto> get_cats_by_userid(string id)
         {
             ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
             return _categoryService.GetAllById(id);
         }
 
-        public Object get_category_by_id(string id)
+        public ICategory get_category_by_id(string id)
         {
             ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
             return _categoryService.GetById(id);
         }
 
-        public Object update_cats(Category category)
+        public int update_cat(ICategory category)
         {
             ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
             return _categoryService.Update(category);
+        }
+
+        public CategorySummaryDto get_category_expense_summary(string user_id,string date)
+        {
+            ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
+            return _categoryService.getExpensesSummary(user_id,date);
+        }
+
+        public CategorySummaryDto get_category_income_summary(string user_id, string date)
+        {
+            ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
+            return _categoryService.getIncomeSummary(user_id, date);
+        }
+
+        public CategorySummaryDto get_category_expense_summary_for_year(string user_id, int date)
+        {
+            ICategoryService _categoryService = new CategoryService(_categoryRepositary, _modelDataAnnotationCheck);
+            return _categoryService.getExpensesSummaryForYear(user_id, date);
         }
     }
 }

@@ -16,4 +16,17 @@ namespace ExpenseTrackApp.Models
         public string id { get; set; }
         public string name { get; set; }
     }
+
+    class Month1
+    {
+        public Month1(string _id, string _name, string _type)
+        {
+            id = _id;
+            name = _name;
+            type = _type;
+        }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+    }
 }

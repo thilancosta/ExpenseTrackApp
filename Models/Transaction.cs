@@ -19,6 +19,7 @@ namespace ExpenseTrackApp.Models
         public string remarks { get; set; }
 
         public string user_id { get; set; }
+        public string payer_payee { get; set; }
         public DateTime timestamp { get; set; }
 
 

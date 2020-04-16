@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseTrackApp.Models
 {
-    class Category : ICategory
+    public class Category : ICategory
     {
         public string categoryId { get; set; }
         public string userId { get; set; }

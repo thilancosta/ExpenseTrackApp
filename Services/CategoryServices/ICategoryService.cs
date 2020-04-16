@@ -1,4 +1,5 @@
-﻿using ExpenseTrackApp.Models;
+﻿using ExpenseTrackApp.Dto;
+using ExpenseTrackApp.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,12 @@ namespace ExpenseTrackApp.Services.CategoryServices
         int Update(ICategory category);
         int Delete(string id);
 
-        IEnumerable<Object> GetAllById(string user_id);
+        List<CategoryDto> GetAllById(string user_id);
         MySqlDataAdapter GetAllByUserId(string user_id);
+        CategorySummaryDto getIncomeSummary(string user_id, string date);
+        CategorySummaryDto getExpensesSummary(string user_id, string date);
+        CategorySummaryDto getExpensesSummaryForYear(string user_id, int date);
 
-        ICategory GetById(string id);
+        Category GetById(string id);
     }
 }

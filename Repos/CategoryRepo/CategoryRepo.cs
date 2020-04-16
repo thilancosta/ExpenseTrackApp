@@ -127,6 +127,10 @@ namespace ExpenseTrackApp.Repos.CategoryRepo
                 {
                     MessageBox.Show(e.Message);
                 }
+                finally
+                {
+                    connection.Close();
+                }
                 return adapt;
             }
         }

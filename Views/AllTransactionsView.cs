@@ -111,7 +111,7 @@ namespace ExpenseTrackApp.Views
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[5].Visible = false;
             dataGridView1.Columns[6].Visible = false;
-            dataGridView1.Columns[2].HeaderText = "Amount ($)";
+            dataGridView1.Columns[2].HeaderText = "Amount (Rs)";
             dataGridView1.Columns[7].HeaderText = "Payer or Payee";
             this.clear_data();
         }
@@ -167,7 +167,7 @@ namespace ExpenseTrackApp.Views
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[5].Visible = false;
             dataGridView1.Columns[6].Visible = false;
-            dataGridView1.Columns[2].HeaderText = "Amount ($)";
+            dataGridView1.Columns[2].HeaderText = "Amount (Rs)";
             dataGridView1.Columns[7].HeaderText = "Payer or Payee";
 
         }

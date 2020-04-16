@@ -53,7 +53,7 @@ namespace ExpenseTrackApp
             allTransactionsView.dataGridView1.Columns[0].Visible = false;
             allTransactionsView.dataGridView1.Columns[5].Visible = false;
             allTransactionsView.dataGridView1.Columns[6].Visible = false;
-            allTransactionsView.dataGridView1.Columns[2].HeaderText = "Amount ($)";
+            allTransactionsView.dataGridView1.Columns[2].HeaderText = "Amount (Rs)";
             allTransactionsView.dataGridView1.Columns[7].HeaderText = "Payer or Payee";
 
             allTransactionsView.Show();
@@ -101,15 +101,15 @@ namespace ExpenseTrackApp
             income = inc.totalExpenes;
             balance = income - expense;
             SummaryView sumview = new SummaryView();
-            sumview.label6.Text = expense.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
-            sumview.label5.Text = income.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+            sumview.label6.Text = expense.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
+            sumview.label5.Text = income.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
             if (balance > 0)
             {
-                sumview.label7.Text = balance.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                sumview.label7.Text = balance.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
             }
             else
             {
-                sumview.label7.Text = "-" + balance.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                sumview.label7.Text = "-" + balance.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
             }
             //sumview._initialmonth = DateTime.Now.Month.ToString();
 

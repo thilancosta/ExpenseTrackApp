@@ -63,7 +63,7 @@ namespace ExpenseTrackApp.Views
             if (type == "365")
             {
                 prediction_value = all_year_exp.totalExpenes / 365;
-                label2.Text = prediction_value.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                label2.Text = prediction_value.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
                 label3.Text = "Daily Expense Prediction";
                 label2.Visible = true;
                 label3.Visible = true;
@@ -71,7 +71,7 @@ namespace ExpenseTrackApp.Views
             else if (type == "52")
             {
                 prediction_value = all_year_exp.totalExpenes / 52;
-                label2.Text = prediction_value.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                label2.Text = prediction_value.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
                 label3.Text = "Weekly Expense Prediction";
                 label2.Visible = true;
                 label3.Visible = true;
@@ -79,7 +79,7 @@ namespace ExpenseTrackApp.Views
             else if (type == "12")
             {
                 prediction_value = all_year_exp.totalExpenes / 12;
-                label2.Text = prediction_value.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                label2.Text = prediction_value.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
                 label3.Text = "Monthly Expense Prediction";
                 label2.Visible = true;
                 label3.Visible = true;

@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace ExpenseTrackApp.Views
 {
@@ -22,6 +24,7 @@ namespace ExpenseTrackApp.Views
             this.dataBind();
             dataGridView1.RowHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView1_RowHeaderMouseClick);
             button2.Visible = false;
+            button4.Visible = false;
         }
 
         public void dataBind()
@@ -155,6 +158,65 @@ namespace ExpenseTrackApp.Views
                 MessageBox.Show("Please fill all the details", "Required", MessageBoxButtons.OK);
             }
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string user_id = "7fa65ff0-4a3e-4cc5-b975-fae5c16b385e";
+            ICategory category = new Category();
+            if (textBox1.Text != "" && textBox3.Text != "" && comboBox1.SelectedIndex != -1)
+            {
+                category.categoryId = Guid.NewGuid().ToString();
+                category.userId = user_id;
+                category.category = textBox1.Text;
+                category.type = comboBox1.SelectedValue.ToString();
+                category.exp_limit = Convert.ToDouble(textBox3.Text);
+
+                XmlSerializer serializer = new XmlSerializer(typeof(Category));
+
+                using (FileStream fs = new FileStream(Environment.CurrentDirectory + "\\category.xml", FileMode.Create, FileAccess.Write))
+                {
+                    serializer.Serialize(fs, category);
+                    MessageBox.Show("Xml File Created", "Success");
+                    button4.Visible = true;
+                    button3.Visible = false;
+                }
+
+
+
+            }
+            else
+            {
+                MessageBox.Show("Please fill all the details", "Required", MessageBoxButtons.OK);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int result;
+            CategoryController categoryController = new CategoryController();
+            XmlSerializer serializer = new XmlSerializer(typeof(Category));
+            ICategory category = new Category();
+            using (FileStream fs = new FileStream(Environment.CurrentDirectory + "\\category.xml", FileMode.Open, FileAccess.Read))
+            {
+                category = serializer.Deserialize(fs) as ICategory;
+
+                result = categoryController.save_category(category);
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Record Inserted by xml file Succecfully", "Success", MessageBoxButtons.OK);
+                    this.refresh_datagrid();
+                    this.clear_data();
+                    button3.Visible = true;
+                    button4.Visible = false;
+                }
+                else
+                {
+                    MessageBox.Show("Record Not Inserted by xml file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
         }
     }
 }

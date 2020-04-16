@@ -82,15 +82,15 @@ namespace ExpenseTrackApp.Views
             expense = exp.totalExpenes;
             income = inc.totalExpenes;
             balance = income - expense;
-            label6.Text = expense.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
-            label5.Text = income.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+            label6.Text = expense.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
+            label5.Text = income.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
             if (balance > 0)
             {
-                label7.Text = balance.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                label7.Text = balance.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
             }
             else
             {
-                label7.Text = "-" + balance.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+                label7.Text = "-" + balance.ToString("C", CultureInfo.CreateSpecificCulture("en-LK"));
             }
             //sumview._initialmonth = DateTime.Now.Month.ToString();
 
